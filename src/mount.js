@@ -1,10 +1,9 @@
 import omitBy from 'lodash.omitby';
 import isNil from 'lodash.isnil';
 import values from 'object-values';
-import {isDOMComponent, isElement} from 'enzyme/build/react-compat';
-import {internalInstance, propsOfNode} from 'enzyme/build/Utils';
+import {internalInstance, isReactElementAlike} from 'enzyme/build/Utils';
 import {typeName} from 'enzyme/build/Debug';
-import {childrenOfNode} from 'enzyme/build/ShallowTraversal';
+import {childrenOfNode, propsOfNode} from 'enzyme/build/RSTTraversal';
 import {compact} from './utils';
 
 function instToJson(inst) {
@@ -36,17 +35,20 @@ function instToJson(inst) {
   const type = typeName(currentElement);
   const props = omitBy(
     propsOfNode(currentElement),
-    (val, key) => key === 'children' || val === undefined
+    (val, key) => key === 'children' || val === undefined,
   );
   const children = [];
-  if (isDOMComponent(publicInst)) {
+  if (publicInst && publicInst.nodeType === 'host') {
     const renderedChildren = inst._renderedChildren;
     if (isNil(renderedChildren)) {
       children.push(...childrenOfNode(currentElement));
     } else {
       children.push(...values(renderedChildren));
     }
-  } else if (isElement(currentElement) && typeof currentElement.type === 'function') {
+  } else if (
+    isReactElementAlike(currentElement) &&
+    typeof currentElement.type === 'function'
+  ) {
     children.push(inst._renderedComponent);
   }
 
@@ -61,5 +63,7 @@ function instToJson(inst) {
 }
 
 export default wrapper => {
-  return wrapper.length > 1 ? wrapper.nodes.map(instToJson) : instToJson(wrapper.node);
+  return wrapper.length > 1
+    ? wrapper.nodes.map(instToJson)
+    : instToJson(wrapper.node);
 };

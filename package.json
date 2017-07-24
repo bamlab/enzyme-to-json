@@ -1,5 +1,5 @@
 {
-  "name": "enzyme-to-json",
+  "name": "@bam.tech/enzyme-to-json",
   "description": "convert enzyme wrapper to a format compatible with Jest snapshot",
   "main": "build/index.js",
   "scripts": {
@@ -49,7 +49,7 @@
     "object.entries": "^1.0.3"
   },
   "peerDependencies": {
-    "enzyme": "^2.7.1"
+    "enzyme": "alpha"
   },
   "devDependencies": {
     "babel-cli": "^6.22.2",
@@ -59,12 +59,12 @@
     "babel-preset-react": "^6.22.0",
     "codecov": "^2.1.0",
     "cz-conventional-changelog": "~2.0.0",
-    "enzyme": "^2.8.1",
+    "enzyme": "alpha",
     "eslint": "^3.15.0",
-    "eslint-config-prettier": "^1.0.3",
-    "eslint-config-standard": "^10.2.0",
-    "eslint-config-standard-react": "^4.2.0",
-    "eslint-plugin-import": "^2.2.0",
+    "eslint-config-prettier": "^2.3.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-config-standard-react": "^5.0.0",
+    "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-node": "^4.2.2",
     "eslint-plugin-promise": "^3.4.1",
     "eslint-plugin-react": "^6.9.0",
@@ -72,27 +72,19 @@
     "jest": "~19.0.2",
     "lint-staged": "^3.4.0",
     "pre-commit": "~1.2.2",
-    "prettier": "^1.0.2",
-    "react": "^15.5.4",
+    "prettier": "^1.5.3",
+    "react": "16.0.0-alpha.12",
     "react-bootstrap": "^0.31.0",
-    "react-dom": "^15.5.4",
-    "react-test-renderer": "^15.5.4",
+    "react-dom": "16.0.0-alpha.12",
+    "react-test-renderer": "16.0.0-alpha.12",
     "semantic-release": "^6.3.2"
   },
   "jest": {
-    "testPathIgnorePatterns": [
-      "<rootDir>/tests/serializer",
-      "<rootDir>/node_modules/"
-    ],
-    "coveragePathIgnorePatterns": [
-      "<rootDir>/tests"
-    ]
+    "testPathIgnorePatterns": ["<rootDir>/tests/serializer", "<rootDir>/node_modules/"],
+    "coveragePathIgnorePatterns": ["<rootDir>/tests"]
   },
   "lint-staged": {
-    "*.js": [
-      "prettier --write --single-quote --trailing-comma all --no-bracket-spacing",
-      "git add"
-    ]
+    "*.js": ["prettier --write --single-quote --trailing-comma all --no-bracket-spacing", "git add"]
   },
   "pre-commit": "lint-staged",
   "config": {
